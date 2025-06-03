@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 namespace HyperGame.Script.Gameplay.Input
 {
-     [RequireComponent(typeof(RectTransform))]
+     [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
      public class EnhancedOnScreenTouchPad : OnScreenControl,
           IPointerDownHandler,
           IPointerUpHandler,

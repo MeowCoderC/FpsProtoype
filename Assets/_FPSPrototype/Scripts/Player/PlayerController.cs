@@ -49,29 +49,39 @@ namespace FPSPrototype
 
         private void HandleJumpAndGravity(bool jumpPressed)
         {
+            ApplyGravity();
+            HandleJump(jumpPressed);
+            ApplyVerticalMovement();
+        }
+
+        private void ApplyGravity()
+        {
             if (isGrounded && velocity.y < 0)
+            {
                 velocity.y = -2f;
+                return;
+            }
 
+            float gravityEffect = velocity.y > 0
+                ? playerData.gravity * playerData.riseMultiplier
+                : playerData.gravity * playerData.fallMultiplier;
+
+            velocity.y += gravityEffect * Time.deltaTime;
+        }
+
+        private void HandleJump(bool jumpPressed)
+        {
             if (isGrounded && jumpPressed)
+            {
                 velocity.y = Mathf.Sqrt(playerData.jumpForce * -2f * playerData.gravity);
+            }
+        }
 
-            if (velocity.y < 0)
-            {
-                // Falling
-                velocity.y += playerData.gravity * playerData.fallMultiplier * Time.deltaTime;
-            }
-            else if (velocity.y > 0)
-            {
-                // Rising
-                velocity.y += playerData.gravity * playerData.riseMultiplier * Time.deltaTime;
-            }
-            else
-            {
-                velocity.y += playerData.gravity * Time.deltaTime;
-            }
-
+        private void ApplyVerticalMovement()
+        {
             characterController.Move(Vector3.up * velocity.y * Time.deltaTime);
         }
+
 
         private void CheckGrounded()
         {

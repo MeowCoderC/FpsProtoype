@@ -200,9 +200,9 @@ GameObject:
   - component: {fileID: 144541558}
   - component: {fileID: 144541557}
   - component: {fileID: 144541561}
-  - component: {fileID: 144541560}
   - component: {fileID: 144541559}
   - component: {fileID: 144541562}
+  - component: {fileID: 144541563}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -257,26 +257,6 @@ MonoBehaviour:
   maxPitch: 80
   cameraHolder: {fileID: 1437025445}
   playerBody: {fileID: 144541558}
---- !u!114 &144541560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144541556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c431a06ea7466314aa95aed803fc46f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 1
-  gravity: -9.81
-  groundCheck: {fileID: 549718654}
-  groundRadius: 0.2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!143 &144541561
 CharacterController:
   m_ObjectHideFlags: 0
@@ -315,6 +295,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998b69794e654084b85096db399f2683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 23dc1f39ef00a884faa3fd32503469f4, type: 2}
+--- !u!114 &144541563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144541556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c719d4f5da1efa4cb242855976272eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jetpackForce: 10
+  fuelCapacity: 5
+  fuelRechargeRate: 2
+  fuelConsumptionRate: 1
 --- !u!1 &156379371
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,14 +605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307e7e31b2a38c94ea2c1c15a8209ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internalControlPath: <Touchscreen>/touch9/delta
-  stickType: 0
-  axisOptions: 0
-  movementRange: 50
-  deadZone: 0
-  showOnlyWhenPressed: 0
-  background: {fileID: 383368223}
-  handle: {fileID: 383368223}
 --- !u!1 &435939608
 GameObject:
   m_ObjectHideFlags: 0

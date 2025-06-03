@@ -10,14 +10,12 @@ namespace FPSPrototype
         [SerializeField] private float fuelConsumptionRate = 1f;
 
         private float               currentFuel;
-        private CharacterController characterController;
         private PlayerInputHandler  inputHandler;
         private PlayerController    playerController;
         private bool                wasJetpackingLastFrame;
 
         private void Awake()
         {
-            characterController = GetComponent<CharacterController>();
             inputHandler        = GetComponent<PlayerInputHandler>();
             playerController    = GetComponent<PlayerController>();
             currentFuel         = fuelCapacity;
