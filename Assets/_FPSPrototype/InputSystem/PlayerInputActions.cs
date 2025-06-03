@@ -55,6 +55,24 @@ namespace FPSPrototype
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""22977945-84a1-4a8b-ba28-cdf6372799f0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jetpack"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd1997ac-66ca-4f2e-bad8-f0f8e2d12dee"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +185,28 @@ namespace FPSPrototype
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1550d71-4058-44c8-aec9-87bb2019f5f9"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df2690c6-79a3-4ff1-b633-67f48a5b4586"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jetpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -178,6 +218,8 @@ namespace FPSPrototype
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+            m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+            m_Player_Jetpack = m_Player.FindAction("Jetpack", throwIfNotFound: true);
         }
 
         ~@PlayerInputActions()
@@ -247,6 +289,8 @@ namespace FPSPrototype
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Look;
+        private readonly InputAction m_Player_Sprint;
+        private readonly InputAction m_Player_Jetpack;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -254,6 +298,8 @@ namespace FPSPrototype
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Look => m_Wrapper.m_Player_Look;
+            public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            public InputAction @Jetpack => m_Wrapper.m_Player_Jetpack;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -272,6 +318,12 @@ namespace FPSPrototype
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
+                @Jetpack.started += instance.OnJetpack;
+                @Jetpack.performed += instance.OnJetpack;
+                @Jetpack.canceled += instance.OnJetpack;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -285,6 +337,12 @@ namespace FPSPrototype
                 @Look.started -= instance.OnLook;
                 @Look.performed -= instance.OnLook;
                 @Look.canceled -= instance.OnLook;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
+                @Jetpack.started -= instance.OnJetpack;
+                @Jetpack.performed -= instance.OnJetpack;
+                @Jetpack.canceled -= instance.OnJetpack;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -307,6 +365,8 @@ namespace FPSPrototype
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
+            void OnJetpack(InputAction.CallbackContext context);
         }
     }
 }

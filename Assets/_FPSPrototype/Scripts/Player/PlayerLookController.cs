@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace FPSPrototype
 {
+    using System;
+    
+    [RequireComponent(typeof(PlayerInputHandler))]
     public class PlayerLookController : MonoBehaviour
     {
         [Header("Look Settings")]
@@ -13,19 +16,30 @@ namespace FPSPrototype
         [SerializeField] private Transform cameraHolder;
         [SerializeField] private Transform playerBody;
 
-        private float pitch;
+        private float              pitch;
+        private PlayerInputHandler inputHandler;
+
+        private void Awake()
+        {
+            inputHandler = GetComponent<PlayerInputHandler>();
+        }
 
         public void Rotate(Vector2 lookDelta)
         {
             if (playerBody == null || cameraHolder == null) return;
-
-            // Xoay ngang
+            
+            //Rotate vertically
             playerBody.Rotate(Vector3.up * lookDelta.x * sensitivity);
-
-            // Xoay dọc
+            
+            //rotate horizontally
             pitch                      -= lookDelta.y * sensitivity;
             pitch                      =  Mathf.Clamp(pitch, minPitch, maxPitch);
             cameraHolder.localRotation =  Quaternion.Euler(pitch, 0f, 0f);
+        }
+
+        private void Update()
+        {
+            Rotate(inputHandler.LookInput);
         }
     }
 }
