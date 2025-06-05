@@ -73,6 +73,24 @@ namespace FPSPrototype
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""b95dd865-04f1-4d13-ad07-974ab866d916"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef013f30-2286-4df3-8d77-1190f4a91308"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -188,6 +206,17 @@ namespace FPSPrototype
                 },
                 {
                     ""name"": """",
+                    ""id"": ""67160a4a-f91f-4909-b512-6fb6ccdfa26b"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b1550d71-4058-44c8-aec9-87bb2019f5f9"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -207,6 +236,28 @@ namespace FPSPrototype
                     ""action"": ""Jetpack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4830743c-645d-4c67-8384-2b897d228bd4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""485d59fa-771d-42dd-bff7-9bbb8016c50a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -220,6 +271,8 @@ namespace FPSPrototype
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_Jetpack = m_Player.FindAction("Jetpack", throwIfNotFound: true);
+            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         }
 
         ~@PlayerInputActions()
@@ -291,6 +344,8 @@ namespace FPSPrototype
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_Jetpack;
+        private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_Aim;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -300,6 +355,8 @@ namespace FPSPrototype
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
             public InputAction @Jetpack => m_Wrapper.m_Player_Jetpack;
+            public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @Aim => m_Wrapper.m_Player_Aim;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -324,6 +381,12 @@ namespace FPSPrototype
                 @Jetpack.started += instance.OnJetpack;
                 @Jetpack.performed += instance.OnJetpack;
                 @Jetpack.canceled += instance.OnJetpack;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -343,6 +406,12 @@ namespace FPSPrototype
                 @Jetpack.started -= instance.OnJetpack;
                 @Jetpack.performed -= instance.OnJetpack;
                 @Jetpack.canceled -= instance.OnJetpack;
+                @Fire.started -= instance.OnFire;
+                @Fire.performed -= instance.OnFire;
+                @Fire.canceled -= instance.OnFire;
+                @Aim.started -= instance.OnAim;
+                @Aim.performed -= instance.OnAim;
+                @Aim.canceled -= instance.OnAim;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -367,6 +436,8 @@ namespace FPSPrototype
             void OnLook(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnJetpack(InputAction.CallbackContext context);
+            void OnFire(InputAction.CallbackContext context);
+            void OnAim(InputAction.CallbackContext context);
         }
     }
 }
